@@ -1,0 +1,109 @@
+#home-page {
+    max-width: 992px;
+    margin: auto;
+    position: relative;
+
+    #start-scan-intro-box {
+        border-radius: 10px;
+        max-width: 500px;
+        margin: 50px 0;
+        padding: 4px;
+
+        #start-scan-intro-box-box {
+            //background: #4e5870;
+            color: var(--pure-white);
+            border-radius: 5px;
+            padding: 10px;
+            font-family: 'Nunito', sans-serif;
+
+            h3 {
+                font-size: 30px;
+                font-weight: 800;
+            }
+
+            p {
+                font-size: 18px;
+                font-weight: 400;
+                color: #aab0bd;
+            }
+        }
+    }
+
+    #home-chrome-scanning-info-section {
+        position: absolute;
+        top: 200px;
+        right: 0;
+        padding: 15px;
+        background: #283149;
+        border-radius: 15px;
+        height: 200px;
+        width: 450px;
+        -webkit-mask-image: radial-gradient(circle 10px at -38px 320px, transparent 0, transparent 200px, black 20px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        color: var(--pure-white);
+        //pointer-events: none;
+
+        &:after {
+            content: "";
+            position: absolute;
+            width: 305px;
+            height: 10px;
+            bottom: 19px;
+            right: 20px;
+            background: linear-gradient(90deg, #00c8d1 0%, #1276a8 100%);
+            border-radius: 2px;
+        }
+
+        &.active {
+            opacity: 1;
+        }
+
+        h4 {
+            font-size: 18px;
+        }
+        p {
+            font-size: 18px;
+            font-weight: 400;
+            color: #aab0bd;
+        }
+    }
+
+    #scan-results-block {
+        background: #283149;
+        padding: 40px 25px;
+        border-radius: 15px;
+        color: var(--pure-white);
+        -webkit-mask-image: radial-gradient(circle 10px at 490px -125px, transparent 0, transparent 170px, black 20px);
+        position: relative;
+        opacity: 0;
+        transition: $transition;
+        pointer-events: none;
+
+        &.active {
+            opacity: 1;
+            pointer-events: unset;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 5px;
+            width: 100%;
+            background: linear-gradient(90deg, #00c8d1 0%, #1276a8 100%);
+        }
+
+        h4 {
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: 400;
+            color: #aab0bd;
+        }
+    }
+}

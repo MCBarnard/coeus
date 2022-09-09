@@ -41,10 +41,10 @@ return [
                 ],
             ],
             'woolworths' => [
-                'exact-item-names' => '20002480',
+                'exact-item-names' => '6001068480401',
                 'product-x-path' => [
                 'method' => 'xpath',
-                    'path' => '//a[text()[contains(., " Baked Beans 410 g")]]'
+                    'path' => '//a[text()[contains(., " Nestlé Milo 500 g")]]'
                 ],
             ],
             'barcode' => '6001068480401',

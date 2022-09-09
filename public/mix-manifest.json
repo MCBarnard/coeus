@@ -1,0 +1,8 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/components/Navbar.js": "/js/components/Navbar.js",
+    "/js/components/ThreeJsBackground.js": "/js/components/ThreeJsBackground.js",
+    "/js/components/StartScanButton.js": "/js/components/StartScanButton.js",
+    "/js/pages/Home.js": "/js/pages/Home.js",
+    "/css/app.css": "/css/app.css"
+}

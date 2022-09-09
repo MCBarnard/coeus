@@ -1,0 +1,30 @@
+$font-family: 'Roboto', sans-serif;
+
+#three-js-page {
+    position: relative;
+    height: 100%;
+
+    .particle-container {
+        margin: 0;
+        padding: 0;
+        background-color: #1D1E22;
+        position: relative;
+        height: calc(100vh - 70px);
+    }
+
+    canvas {
+        display: block;
+        background-color: #c2c5da;
+        max-width: 100%;
+        height: 100%;
+    }
+
+    canvas, #overlay {
+        position: absolute;
+    }
+
+    #overlay {
+        width: 100%;
+        height: calc(100vh - 70px);
+    }
+}

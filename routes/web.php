@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ScraperController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ScraperController::class, 'scrape']);
+Route::get('/', [PagesController::class, 'home'])->name('index');
+Route::get('/start-scan', [ScraperController::class, 'scrape']);
