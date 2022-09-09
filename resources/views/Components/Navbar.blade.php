@@ -32,6 +32,11 @@
                 <li class="{{ Route::current()->getName() == 'contact' ? 'active' : '' }}">
                     Products
                 </li>
+                <li>
+                    <a href="https://github.com/MCBarnard/coeus/blob/master/README.md" target="_blank" rel="noreferrer">
+                        The Name
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="cta-btn">
