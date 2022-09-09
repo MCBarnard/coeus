@@ -23,7 +23,7 @@
             <ul>
                 <li class="{{ Route::current()->getName() == 'index' ? 'active' : '' }}">
                     <a href="{{ URL::route("index") }}">
-                        Scan
+                        Scan Stores
                     </a>
                 </li>
                 <li class="{{ Route::current()->getName() == 'about' ? 'active' : '' }}">

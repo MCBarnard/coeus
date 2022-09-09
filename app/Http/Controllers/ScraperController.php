@@ -15,8 +15,8 @@ class ScraperController extends Controller
 //        $checkers = app()->make(Checkers::class);
 //        $checkers->process();
 
-        $pnp = app()->make(PnP::class);
-        $pnp->process();
+//        $pnp = app()->make(PnP::class);
+//        $pnp->process();
 
 //        $game = app()->make(Game::class);
 //        $game->process();

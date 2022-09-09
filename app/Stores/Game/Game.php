@@ -10,8 +10,8 @@ class Game extends ScrapeStore implements StoreInterface
 {
     public function setStoreName(): void
     {
-        $this->storeName = 'Spar';
-        $this->storeSlug = 'spar';
+        $this->storeName = 'Game';
+        $this->storeSlug = 'game';
     }
 
     public function initializePaths(): void

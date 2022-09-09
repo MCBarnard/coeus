@@ -5,6 +5,7 @@ namespace App\Stores\Woolworths;
 use App\Selenium\ScrapeStore;
 use App\Stores\StoreInterface;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Collection\Exception\NoSuchElementException;
 
 class Woolworths extends ScrapeStore implements StoreInterface
@@ -24,7 +25,7 @@ class Woolworths extends ScrapeStore implements StoreInterface
      */
     public function initializePaths(): void
     {
-        $this->paths['search'] = ['method' => 'xpath', 'path' => '/html/body/div[1]/div/header/div[2]/div/section[3]/div/div/form/input[2]'];
+        $this->paths['search'] = ['method' => 'xpath', 'path' => '//*[@id="fldSearch"]'];
         $this->paths['search-btn'] = ['method' => 'class', 'path' => 'icon--search-black'];
         $this->paths['price-special'] = ['method' => 'class', 'path' => 'buySavePrice'];
         $this->paths['price-normal'] = ['method' => 'class', 'path' => 'price'];
@@ -45,13 +46,29 @@ class Woolworths extends ScrapeStore implements StoreInterface
      */
     public function findProductPrice($item)
     {
+        $this->generalWait(10);
         // Focus the search input and type product name
-        $this->driver->findElement($this->webDriverSearch($this->paths['search']))
-            ->sendKeys($item[$this->storeSlug]['exact-item-names']);
+        try {
+            $this->driver->findElement($this->webDriverSearch($this->paths['search']))
+                ->sendKeys($item[$this->storeSlug]['exact-item-names']);
+        } catch (Exception $e) {
+            // Get the store to display the search field
+            $this->driver->executeScript('
+                let element = document.querySelector(".search-bar.fly-out");
+                element.className += " is-open";
+            ');
+            $this->driver->findElement($this->webDriverSearch($this->paths['search']))
+                ->sendKeys($item[$this->storeSlug]['exact-item-names']);
+        }
         $this->generalWait(2);
 
-        // Don't send because Woolworths has some animations going on
-        $this->driver->findElement($this->webDriverSearch($this->paths['search-btn']))->click();
+        try {
+            // Don't send because Woolworths has some animations going on
+            $this->driver->findElement($this->webDriverSearch($this->paths['search-btn']))->click();
+        } catch(Exception $e) {
+            $this->driver->findElement($this->webDriverSearch($this->paths['search']))
+                ->submit();
+        }
         $this->generalWait(2);
 
         // Hide the Shop By department drop down
@@ -59,6 +76,8 @@ class Woolworths extends ScrapeStore implements StoreInterface
         $this->driver->executeScript('
             let element = document.querySelector(".main-nav__list.main-nav__list--primary");
             element.style.display = "none";
+            let element2 = document.getElementById("frmSiteSearch");
+            element2.style.display = "none";
         ');
         $this->generalWait(2);
 
