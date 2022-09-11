@@ -21,20 +21,9 @@
         </div>
         <div class="nav-link">
             <ul>
-                <li class="{{ Route::current()->getName() == 'index' ? 'active' : '' }}">
-                    <a href="{{ URL::route("index") }}">
-                        Scan Stores
-                    </a>
-                </li>
-                <li class="{{ Route::current()->getName() == 'about' ? 'active' : '' }}">
-                    Email List
-                </li>
-                <li class="{{ Route::current()->getName() == 'contact' ? 'active' : '' }}">
-                    Products
-                </li>
                 <li>
                     <a href="https://github.com/MCBarnard/coeus/blob/master/README.md" target="_blank" rel="noreferrer">
-                        The Name
+                        Repository
                     </a>
                 </li>
             </ul>

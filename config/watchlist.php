@@ -47,6 +47,13 @@ return [
                     'path' => '//a[text()[contains(., " Nestlé Milo 500 g")]]'
                 ],
             ],
+            'takealot' => [
+                'exact-item-names' => '6001068480401',
+                'product-x-path' => [
+                'method' => 'xpath',
+                    'path' => '//a[@href[contains(., "nestle-milo-malt-energy-drink-tin-500g")]]'
+                ],
+            ],
             'barcode' => '6001068480401',
             'common-name' => 'Milo',
             'slug' => 'milo'

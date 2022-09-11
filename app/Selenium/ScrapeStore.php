@@ -29,7 +29,12 @@ class ScrapeStore
         $this->seleniumHost = env('CHROME_DRIVER_HOST', 'http://localhost:9595');
 
         // Set browser settings
+        $our_user_agent = array( '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4324.104 Safari/537.36' );
+
         $options = new ChromeOptions();
+        $options->setExperimentalOption("excludeSwitches", array("enable-automation"));
+        $options->addArguments( $our_user_agent );
+
         $flags = explode(",", env('DRIVER_FLAGS'));
         foreach ($flags as $flag) {
             $options->addArguments([$flag]);
@@ -45,8 +50,8 @@ class ScrapeStore
         $this->driver = RemoteWebDriver::create(
             $this->seleniumHost,
             $capabilities,
-            60 * 1000, // Connection timeout in milliseconds
-            60 * 1000  // Request timeout in milliseconds
+            60 * 10000, // Connection timeout in milliseconds
+            60 * 10000  // Request timeout in milliseconds
         );
     }
 
@@ -102,7 +107,7 @@ class ScrapeStore
     }
 
     public function generalWait($time=5) {
-        sleep($time);
+        sleep(floatval($time) . '.' . rand());
     }
 
     public function fetchAndFormatProducts(): array

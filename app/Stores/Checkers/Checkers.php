@@ -30,13 +30,13 @@ class Checkers extends ScrapeStore implements StoreInterface
         // Trying to kick off the navigation from Google so that
         // checkers thinks it's a bit more organic
         $this->driver->get("https://www.google.com");
-        $this->generalWait();
+        $this->generalWait(7);
 
         // Search for checkers in google search field
         $this->driver->findElement($this->webDriverSearch($this->paths['search-google']))
             ->sendKeys("Checkers South Africa")->submit();
 
-        $this->generalWait();
+        $this->generalWait(7);
 
         // Click on Checkers Link
         $this->driver->findElement($this->webDriverSearch($this->paths['google-checkers-link']))->click();
