@@ -20,6 +20,7 @@ class Game extends ScrapeStore implements StoreInterface
         $this->paths['search'] = ['method' => 'xpath', 'path' => '/html/body/div[1]/div/div/div/div/div/div/div[1]/div/div[2]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/div/input'];
         $this->paths['submit-search'] = ['method' => 'xpath', 'path' => '/html/body/div[1]/div/div/div/div/div/div/div[1]/div/div[2]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/div/div'];
         $this->paths['price-normal'] = ['method' => 'xpath', 'path' => '//*[@id="react-app"]/div/div/div/div/div/div/div[1]/div/div[2]/div[2]/div/div/div/div[1]/div/div/div/div/div[2]/div[3]/div[2]/div[1]'];
+        $this->paths['item-img'] = ['method' => 'xpath', 'path' => '//img[contains(@src,"media.cw9yok5fjv-walmartin2-p1-public.model-t.cc.commerce.ondemand.com/medias/")]'];
     }
 
     public function goToSite()
@@ -45,6 +46,11 @@ class Game extends ScrapeStore implements StoreInterface
         // Click on product
         $this->driver->findElement($this->webDriverSearch($item[$this->storeSlug]['product-x-path']))->click();
         $this->generalWait();
+
+        // Remove hover on item picture so that screenshot is clear
+        // @ToDo:: Fix this (Not removing the product preview)
+        $imageButton = $this->driver->findElement($this->webDriverSearch($this->paths['item-img']));
+        $this->driver->executeScript("arguments[0].style.display = 'none';", [$imageButton]);
 
         // Take a screenshot for testing purposes
         $this->takeScreenshot('no-special');

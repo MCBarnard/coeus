@@ -17,7 +17,7 @@ class TakeAlot extends ScrapeStore implements StoreInterface
     public function initializePaths(): void
     {
         $this->paths['search'] = ['method' => 'xpath', 'path' => '//*[@id="shopfront-app"]/header/div/div/div[2]/form/div/div[1]/input'];
-        $this->paths['price-normal'] = ['method' => 'class', 'path' => 'currency'];
+        $this->paths['price-normal'] = ['method' => 'xpath', 'path' => '//*[contains(@class, "pdp-module_sidebar-buybox_")]/div/div/span[contains(@class, "currency-module_currency_")]'];
     }
 
     public function goToSite()
@@ -38,6 +38,13 @@ class TakeAlot extends ScrapeStore implements StoreInterface
         // Click on product
         $this->driver->findElement($this->webDriverSearch($item[$this->storeSlug]['product-x-path']))->click();
         $this->generalWait();
+
+        // Get window tabs
+        $handles = $this->driver->getWindowHandles();
+        foreach ($handles as $handle) {
+            // TakeALot opens a new tab so we need to fetch the price from that screen
+            $this->driver->switchTo()->window($handle);
+        }
 
         // Fetch Price
         $price = $this->driver->findElement($this->webDriverSearch($this->paths['price-normal']))->getText();
