@@ -2,9 +2,9 @@
 
 namespace App\Stores\Shoprite;
 
+use App\Interfaces\StoreInterface;
 use App\Selenium\ScrapeStore;
-use App\Stores\StoreInterface;
-use Facebook\WebDriver\Exception\NoSuchElementException;
+use Illuminate\Support\Facades\Storage;
 
 class Shoprite extends ScrapeStore implements StoreInterface
 {
@@ -16,51 +16,37 @@ class Shoprite extends ScrapeStore implements StoreInterface
 
     public function initializePaths(): void
     {
-        $this->paths['search-google'] = ['method' => 'xpath', 'path' => '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input'];
-        $this->paths['search'] = ['method' => 'xpath', 'path' => '//*[@id="js-site-search-input"]'];
-        $this->paths['google-shoprite-link'] = ['method' => 'xpath', 'path' => '//h3[text()[contains(., "Shoprite ZA | Homepage")]]'];
-        $this->paths['price-special'] = ['method' => 'class', 'path' => 'special-price--promotion'];
-        $this->paths['price-normal'] = ['method' => 'class', 'path' => 'now'];
+        $this->paths['price-special'] = ['method' => 'xpath', 'path' => '//*[contains(@class, "special-price__extra__price")]'];
+        $this->paths['price-normal'] = ['method' => 'xpath', 'path' => '//*[contains(@class, "special-price__price")]'];
     }
 
     public function goToSite()
     {
-        // Trying to kick off the navigation from Google so that
-        // checkers thinks it's a bit more organic
-        $this->driver->get("https://www.google.com");
-        $this->generalWait();
-
-        // Search for checkers in google search field
-        $this->driver->findElement($this->webDriverSearch($this->paths['search-google']))
-            ->sendKeys("Shoprite South Africa")->submit();
-        $this->generalWait();
-
-        // Click on Checkers Link
-        $this->driver->findElement($this->webDriverSearch($this->paths['google-shoprite-link']))->click();
-        $this->generalWait();
+        // We will visit the site for each product to avoid being detected by bot detection
     }
 
     public function findProductPrice ($item)
     {
-        // Focus the search input and search for product
-        $this->driver->findElement($this->webDriverSearch($this->paths['search']))
-            ->sendKeys($item[$this->storeSlug]['exact-item-names'])
-            ->submit();
-
-        // Click on product
-        $this->driver->findElement($this->webDriverSearch($item[$this->storeSlug]['product-x-path']))->click();
-        $this->generalWait();
+        // Directly search via the get request so that they don't detect chrome driver
+        $url = "https://www.shoprite.co.za/search/all?q={$item[$this->storeSlug]['exact-item-names']}";
+        $this->driver->get($url);
 
         // Fetch Price
         try {
-            $price = $this->driver->findElement($this->webDriverSearch($this->paths['price-special']))->getText();
+            $price = $this->driver->findElement($this->webDriverSearch($this->paths['price-normal']))->getText();
+            $promo = $this->driver->findElement($this->webDriverSearch($this->paths['price-special']))->getText();
+            $promo = str_replace(' ', '', $promo);
             $this->takeScreenshot('special');
-        } catch (NoSuchElementException $e) {
+        } catch (\Exception $e) {
             $this->takeScreenshot('no-special');
             $price = $this->driver->findElement($this->webDriverSearch($this->paths['price-normal']))->getText();
         }
         $this->generalWait();
 
-        $this->recordPrice($this->storeName, $item['common-name'], $price, $item['barcode']);
+        if (isset($promo)) {
+            $this->recordPrice($this->storeName, $item['common-name'], $price, $item['barcode'], $promo);
+        } else {
+            $this->recordPrice($this->storeName, $item['common-name'], $price, $item['barcode']);
+        }
     }
 }

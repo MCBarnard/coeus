@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Stores;
+namespace App\Interfaces;
 
 interface StoreInterface
 {

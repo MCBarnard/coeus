@@ -13,7 +13,7 @@ return [
     'products-test' => [
         'milo' => [
             'checkers' => [
-                'exact-item-names' => 'Nestle Milo Tin 500g',
+                'exact-item-names' => '10165441EA',
                 'product-x-path' => [
                     'method' => 'xpath',
                     'path' => ' //a[text()[contains(., " Nestlé Milo Original Breakfast Energy Drink 500g")]]'
@@ -34,7 +34,8 @@ return [
                 ],
             ],
             'shoprite' => [
-                'exact-item-names' => 'Nestlé Milo Original Breakfast Energy Drink 500g',
+//                'exact-item-names' => '10165441EA',
+                'exact-item-names' => '10248591EA',
                 'product-x-path' => [
                 'method' => 'xpath',
                     'path' => '//a[text()[contains(., " Nestlé Milo Original Breakfast Energy Drink 500g")]]'

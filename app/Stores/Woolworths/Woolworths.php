@@ -2,11 +2,9 @@
 
 namespace App\Stores\Woolworths;
 
+use App\Interfaces\StoreInterface;
 use App\Selenium\ScrapeStore;
-use App\Stores\StoreInterface;
 use Exception;
-use Illuminate\Support\Facades\Log;
-use Ramsey\Collection\Exception\NoSuchElementException;
 
 class Woolworths extends ScrapeStore implements StoreInterface
 {

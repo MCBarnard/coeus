@@ -2,9 +2,8 @@
 
 namespace App\Stores\TakeAlot;
 
+use App\Interfaces\StoreInterface;
 use App\Selenium\ScrapeStore;
-use App\Stores\StoreInterface;
-use Facebook\WebDriver\Exception\NoSuchElementException;
 
 class TakeAlot extends ScrapeStore implements StoreInterface
 {

@@ -2,12 +2,9 @@
 
 namespace App\Stores\PnP;
 
+use App\Interfaces\StoreInterface;
 use App\Selenium\ScrapeStore;
-use App\Stores\StoreInterface;
-use Carbon\Carbon;
 use Facebook\WebDriver\Exception\NoSuchElementException;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class PnP extends ScrapeStore implements StoreInterface
 {

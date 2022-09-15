@@ -6,20 +6,25 @@ use App\Stores\Checkers\Checkers;
 use App\Stores\Game\Game;
 use App\Stores\Shoprite\Shoprite;
 use App\Stores\PnP\PnP;
+use App\Stores\Shoprite\Shoprite2;
 use App\Stores\TakeAlot\TakeAlot;
 use App\Stores\Woolworths\Woolworths;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class ScraperController extends Controller
 {
-    public function scrape() {
-//        Blocked by scrape block plugin, wordpress sites
+    public function scrape()
+    {
+
+//        Could be blocked at any time
 //        $checkers = app()->make(Checkers::class);
 //        $checkers->process();
 
-//        Blocked
+//        Could be blocked at any time
 //        $shoprite = app()->make(Shoprite::class);
 //        $shoprite->process();
+        $shoprite = app()->make(Shoprite2::class);
+        $shoprite->process();
 
 
 //        Ready to use
@@ -32,8 +37,8 @@ class ScraperController extends Controller
 //        $game = app()->make(Game::class);
 //        $game->process();
 
-        $takeAlot = app()->make(TakeAlot::class);
-        $takeAlot->process();
+//        $takeAlot = app()->make(TakeAlot::class);
+//        $takeAlot->process();
 
         // For demo purposes only
         // sleep(10);

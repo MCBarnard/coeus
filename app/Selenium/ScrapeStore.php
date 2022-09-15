@@ -95,7 +95,7 @@ class ScrapeStore
     public function takeScreenshot($directory='general'): void
     {
         $screenshot = Carbon::now()->format('d-m-Y_H:i:s') . '-' . $this->driver->getSessionID() . ".png";
-        Storage::put("screenshots/$directory/$this->storeSlug/" . $screenshot, $this->driver->takeScreenshot());
+        Storage::put("screenshots/{$directory}/$this->storeSlug/" . $screenshot, $this->driver->takeScreenshot());
     }
 
     public function recordPrice($store, $productCommonName, $price, $barcode, $promo=null)
