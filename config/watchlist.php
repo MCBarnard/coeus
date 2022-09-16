@@ -34,8 +34,7 @@ return [
                 ],
             ],
             'shoprite' => [
-//                'exact-item-names' => '10165441EA',
-                'exact-item-names' => '10248591EA',
+                'exact-item-names' => '10165441EA',
                 'product-x-path' => [
                 'method' => 'xpath',
                     'path' => '//a[text()[contains(., " Nestlé Milo Original Breakfast Energy Drink 500g")]]'

@@ -10,6 +10,11 @@ interface StoreCurlInterface
     public function setStoreName(): void;
 
     /**
+     * Ensure that we set our own store xpaths
+     */
+    public function initializePaths(): void;
+
+    /**
      * Find a product on store site
      */
     public function fetchProduct($item);
@@ -17,5 +22,5 @@ interface StoreCurlInterface
     /**
      * Way to find a product on store site
      */
-    public function findProductPrice();
+    public function findProductPrice($item);
 }
